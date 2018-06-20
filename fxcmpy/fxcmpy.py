@@ -649,6 +649,30 @@ class fxcmpy(object):
         else:
             raise ValueError('Symbol %s is not subscripted' % symbol)
 
+    def update_subscriptions(self, symbol, visible='true'):
+        """ Offers table will show only symbols that are
+        subscribed.
+        
+        For a list of symbols available for subscription
+        use the get_instruments() method.
+        
+        Arguments:
+            symbol: String 'GBP/USD'
+            visible: String Boolean (default true)
+        
+        Returns:
+            Server response
+
+        """
+        responce = self.__handle_request__(
+            method='trading/update_subscriptions',
+            params={'symbol': symbol, 'visible': visible},
+            protocol='post'
+        )
+        # Update self.offers
+        self.__collect_offers__()
+        return responce
+
     def get_subscribed_symbols(self):
         """ Returns a list of symbols for the subscribed instruments."""
 
