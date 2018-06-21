@@ -664,6 +664,12 @@ class fxcmpy(object):
             Server response
 
         """
+        if symbol not in self.instruments:
+            raise ValueError('Unknown symbol %s.' % symbol)
+
+        if visible not in ['true','false']:
+            raise ValueError("visible must be either 'true' or false'")
+
         responce = self.__handle_request__(
             method='trading/update_subscriptions',
             params={'symbol': symbol, 'visible': visible},
